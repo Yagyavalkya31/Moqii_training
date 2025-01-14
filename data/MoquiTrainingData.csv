@@ -1,0 +1,5 @@
+moqui.training.MoquiTraining , demo
+trainingId , trainingName ,trainingDate ,trainingPrice,trainingDuration
+001, training1, 2024-01-14, 5000, 5
+002, training2, 2003-02-14, 9000, 7
+003, training3, 2003-10-31, 3000, 2
