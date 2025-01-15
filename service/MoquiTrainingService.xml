@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+<!--    new entity-auto service for creating records in the MoquiTraining entity.-->
+    <service verb="create" noun="MoquiTraining" type="entity-auto">
+        <in-parameters>
+            <auto-parameters entity-name="moqui.training.MoquiTraining"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="trainingId"/>
+            <parameter name="trainingName"/>
+            <parameter name="trainingDate"/>
+
+        </out-parameters>
+    </service>
+
+
+    <!--Implement a service with implementation logic in a groovy script to create data.-->
+    <service verb="create" noun="MoquiTrainingGroovy" type="script"
+             location="component://moqui-training/service/training.groovy">
+        <in-parameters>
+            <auto-parameters entity-name="moqui.training.MoquiTraining" include="nonpk"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="trainingId"/>
+        </out-parameters>
+    </service>
+
+
+    <!--Implement a service with default type to create records for the entity-->
+    <service verb="create" noun="DefaultedTraining">
+        <in-parameters >
+            <auto-parameters entity-name="moqui.training.MoquiTraining"/>
+            <parameter name="trainingId" required="true"/>
+            <parameter name="trainingName" default="sample" required="true"/>
+            <parameter name="trainingDate"   required="true"/>
+            <parameter name="trainingPrice" type="Integer" required="true"/>
+            <parameter name="trainingDuration" type="Integer" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="trainingId"/>
+        </out-parameters>
+        <actions>
+            <service-call name="create#moqui.training.MoquiTraining" in-map="context" out-map="context"/>
+        </actions>
+    </service>
+
+
+
+</services>
